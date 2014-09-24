@@ -8,12 +8,12 @@
 
 mrb_value x11_simple_test(mrb_state* mrb, mrb_value self)
 {
-  Display *dpy = XOpenDisplay(NULL);
-  Window win = XCreateSimpleWindow(dpy, DefaultRootWindow(dpy), 0, 0, 256, 256, 0, 0, 0);
-  XMapWindow(dpy, win);
+  Display* dpy = XOpenDisplay(NULL);
+  Window* win = mrb_malloc(mrb, sizeof(Window));
+  *win = XCreateSimpleWindow(dpy, DefaultRootWindow(dpy), 0, 0, 256, 256, 0, 0, 0);
+  XMapWindow(dpy, *win);
   XFlush(dpy);
-  while(1);
-  return mrb_nil_value();
+  return mrb_fixnum_value((int)win);
 }
 
 // initializer
