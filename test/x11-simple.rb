@@ -1,5 +1,6 @@
 #!ruby
+# coding: utf-8
 
-p X11
-X11.test
+win = X11Window::new
+# p win.handle
 
