@@ -31,10 +31,9 @@ mrb_value x11_window_init(mrb_state* mrb, mrb_value self)
   struct x11_attr* attr = (struct x11_attr*)mrb_malloc(mrb, sizeof(struct x11_attr));
   attr->disp = XOpenDisplay(NULL);
   attr->win = mrb_malloc(mrb, sizeof(Window));
-  *(attr->win) = XCreateSimpleWindow(attr->disp, DefaultRootWindow(attr->disp), 0, 0, 480, 360, 0, 0, 0);
+  *(attr->win) = XCreateSimpleWindow(attr->disp, DefaultRootWindow(attr->disp), 0, 0, 320, 240, 0, 0, 0);
   XMapWindow(attr->disp, *(attr->win));
   XFlush(attr->disp);
-
   DATA_PTR(self) = attr;
   DATA_TYPE(self) = &x11_window_type;
   return self;
@@ -57,8 +56,8 @@ void mrb_mruby_x11_simple_gem_init(mrb_state* mrb)
 {
   struct RClass* rclass = mrb_define_class(mrb, "X11Window", mrb->object_class);
   MRB_SET_INSTANCE_TT(rclass, MRB_TT_DATA);
-  mrb_define_class_method(mrb, rclass, "initialize", x11_window_init,   MRB_ARGS_NONE());
-  mrb_define_class_method(mrb, rclass, "handle",     x11_window_handle, MRB_ARGS_NONE());
+  mrb_define_method(mrb, rclass, "initialize", x11_window_init,   MRB_ARGS_NONE());
+  mrb_define_method(mrb, rclass, "handle",     x11_window_handle, MRB_ARGS_NONE());
   return;
 }
 
